@@ -10,6 +10,7 @@ import { AuthMiddleware } from './auth/middlewares/authMiddleware';
 import config from './config/configuration';
 
 @Module({
+  // import ConfigModule for configuration
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
@@ -26,6 +27,8 @@ import config from './config/configuration';
     ProfileModule,
   ],
 })
+
+// Applying middleware
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes('profile');

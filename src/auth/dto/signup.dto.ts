@@ -25,6 +25,7 @@ export class SignUpDto {
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(20)
+  // regex for password to contain at least one uppercase, lowercase, number or special character
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message:
       'Password must contain at least 1 uppercase letter, at least 1 lowercase letter, and at least 1 number or special character.',

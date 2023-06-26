@@ -15,6 +15,7 @@ export async function comparePassword(
   return await bcrypt.compare(password, userPassword);
 }
 
+// encrypt password
 export async function hashPassword(password: string): Promise<string> {
   const saltOrRounds = parseInt(config().jwtSalt);
   const salt = await bcrypt.genSalt(saltOrRounds);

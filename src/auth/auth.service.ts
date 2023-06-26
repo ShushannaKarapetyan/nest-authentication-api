@@ -18,6 +18,7 @@ export class AuthService {
   async signIn({ email, password }: SignInDto): Promise<object> {
     const user = await this.usersService.findByEmail(email);
 
+    // check if the user exists and password is correct
     if (user && (await comparePassword(password, user.password))) {
       const payload = { sub: user._id, email: user.email };
 

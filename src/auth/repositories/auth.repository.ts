@@ -15,6 +15,8 @@ export class AuthRepository {
 
   async signUp(signUpDto: SignUpDto): Promise<boolean> {
     const password = await hashPassword(signUpDto.password);
+
+    // save user with hashed password
     const user = new this.userModel(_.assignIn(signUpDto, { password }));
     await user.save();
 

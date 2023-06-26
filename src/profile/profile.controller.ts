@@ -20,6 +20,7 @@ export class ProfileController {
   async me(
     @Body('_validated') validated: TokenPayloadInterface,
   ): Promise<User> {
+    // exclude password and version from user's own data
     const user = await this.usersService.findByEmail(validated.email, [
       '-__v',
       '-password',

@@ -6,6 +6,7 @@ import { verify } from '../../utils/auth';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
+    // check if 'authorization' exists in headers
     if (!req.headers.authorization) {
       res.writeHead(401, { 'content-type': 'application/json' });
       res.write(
