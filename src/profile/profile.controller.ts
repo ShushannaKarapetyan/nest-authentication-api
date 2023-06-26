@@ -20,7 +20,10 @@ export class ProfileController {
   async me(
     @Body('_validated') validated: TokenPayloadInterface,
   ): Promise<User> {
-    const user = await this.usersService.findById(validated.sub);
+    const user = await this.usersService.findByEmail(validated.email, [
+      '-__v',
+      '-password',
+    ]);
 
     if (!user) {
       throw new UnauthorizedException('Not authorized.');

@@ -11,15 +11,15 @@ export class SignUpDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(20)
-  readonly firstName: string;
+  firstName: string;
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  readonly lastName: string;
+  lastName: string;
 
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
@@ -29,5 +29,5 @@ export class SignUpDto {
     message:
       'Password must contain at least 1 uppercase letter, at least 1 lowercase letter, and at least 1 number or special character.',
   })
-  readonly password: string;
+  password: string;
 }

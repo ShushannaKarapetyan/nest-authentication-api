@@ -1,20 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 
-import { User, UserDocument } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
+import { UserRepository } from './repositories/user.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel('User') private readonly userModel: Model<UserDocument>,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  async findByEmail(email: string): Promise<User | null> {
-    return this.userModel.findOne({ email });
-  }
-
-  async findById(id: string): Promise<User | null> {
-    return this.userModel.findById(id).select(['-__v', '-password']);
+  async findByEmail(
+    email: string,
+    exclude: string[] = [],
+  ): Promise<User | null> {
+    return this.userRepository.findByEmail(email, exclude);
   }
 }
