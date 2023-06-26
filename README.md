@@ -3,11 +3,7 @@
 This is a simple user authentication API written in **Nest.js**.
 The API allows users to register, login, and access their own data.
 
-Endpoints
-* /auth/register - registration
-* /auth/login - login
-* /profile - get own data
-
+> **_NOTE:_** Use Swagger for API Documentation ({HOST}:{PORT}/api)
 
 ## Installation
 
@@ -41,3 +37,4 @@ $ npm run start:prod
 * [class-transformer](https://www.npmjs.com/package/class-transformer)
 * [class-validator](https://www.npmjs.com/package/class-validator)
 * [lodash](https://www.npmjs.com/package/lodash)
+* [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
