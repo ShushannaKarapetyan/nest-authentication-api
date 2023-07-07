@@ -10,10 +10,7 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async findByEmail(
-    email: string,
-    exclude: string[] = [],
-  ): Promise<User | null> {
-    return this.userModel.findOne({ email }).select(exclude);
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email });
   }
 }

@@ -8,9 +8,12 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-import { TokenPayloadInterface } from './interfaces/token-payload.interface';
+import { TokenPayload } from './types/token-payload.type';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/schemas/user.schema';
+import { IReadableUser } from '../users/interfaces/readable-user.interface';
+import { userSensitiveFieldsEnum } from '../users/enums/protected-fields.enum';
+import * as _ from 'lodash';
 
 @ApiTags('profile')
 @Controller('profile')
@@ -26,18 +29,19 @@ export class ProfileController {
     description: "Returns user's own data",
   })
   async me(
-    @Body('_validated') validated: TokenPayloadInterface,
-  ): Promise<User> {
-    // exclude password and version from user's own data
-    const user = await this.usersService.findByEmail(validated.email, [
-      '-__v',
-      '-password',
-    ]);
+    @Body('_validated') validated: TokenPayload,
+  ): Promise<IReadableUser> {
+    const user = await this.usersService.findByEmail(validated.email);
 
     if (!user) {
       throw new UnauthorizedException('Not authorized.');
     }
 
-    return user;
+    const readableUser = user.toObject() as IReadableUser;
+
+    return _.omit<any>(
+      readableUser,
+      Object.values(userSensitiveFieldsEnum),
+    ) as IReadableUser;
   }
 }
